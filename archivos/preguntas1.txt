@@ -1,0 +1,12 @@
+BFS se usa en:
+Grafos y arboles
+DFS se usa en:
+Grafos y arboles
+Prim se usa en:
+Grafos
+Kruskal se usa en:
+Grafos
+Dijkstra se usa en:
+Grafos
+Floyd-Warshall se usa en:
+Grafos

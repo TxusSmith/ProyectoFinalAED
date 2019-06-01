@@ -1,0 +1,12 @@
+Que significa BFS?
+Breadth First Search
+Que signigica DFS?
+Depth First Search
+Con Prim se encuentra un:
+arbol recubridor minimo
+Con Kruskal se encuentra un:
+arbol recubridor minimo
+Dijkstra es un:
+algoritmo de caminos minimos
+Floyd-Warshall es un:
+algoritmo de caminos minimos

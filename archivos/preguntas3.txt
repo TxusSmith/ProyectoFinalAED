@@ -1,0 +1,12 @@
+En la busqueda por anchura se:
+recorre un grafo o un arbol
+En la busqueda por profundidad se:
+recorre un grafo o un arbol
+Con Prim se encuentra un subconjunto de:
+aristas
+Con Kruskal se encuentra un subconjunto de:
+aristas
+Con Dijkstra se encuentra una lista con:
+el menor peso de un vertice a todos
+Con Floyd-Warshall podemos obtener una:
+matriz con el menor peso entre todos los vertices

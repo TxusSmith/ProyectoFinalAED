@@ -1,0 +1,42 @@
+flowlayout
+java
+breadth
+expande
+Vojtech Jarnik
+Robert C. Prim
+1957
+1930
+Edsger Wybe Dijkstra
+DJP
+Jarnik
+pseudocodigo
+haskell
+c++
+pilas
+colas
+queue
+stack
+lista
+matriz
+hola mundo
+Boruvka
+Joseph Kruskal
+1956
+O(log n)
+Radix
+Cormen
+Bernard Roy
+1959
+Warshall
+Floyd
+raiz
+arbusto
+rama
+AND
+OR
+NAND
+NOR
+bipartito
+completo
+wheel
+ciclo

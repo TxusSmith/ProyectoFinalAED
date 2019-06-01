@@ -1,0 +1,12 @@
+Con BFS puedo obtener el _______ de cada nodo en un arbol.
+nivel
+Con DFS puedo obtener la cantidad de _________ en un grafo.
+subgrafos
+Con Prim puedo recorrer un grafo __________ y __________ con el menor peso total.
+ponderado-conexo
+Con Kruskal puedo recorrer un grafo __________ y __________ con el menor peso total.
+ponderado-conexo
+Con Dijkstra puedo obtener el camino de un __________ a todos los otros con el menor peso entre cada uno.
+vertice
+Con Floyd-Warshall puedo obtener el camino entre todo par de __________ con un peso menor.
+vertices
