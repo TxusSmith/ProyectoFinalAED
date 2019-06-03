@@ -20,7 +20,7 @@ public class Jugador {
 		this.nickname = nickname;
 		puntuacion = 0;
 		nivelActual = 0;
-		coins = 25;
+		coins = 30;
 		vidas = 4; 
 		this.x = x;
 		this.y = y;
@@ -98,8 +98,8 @@ public class Jugador {
 			float deltaY = y1 - y;
 			float angle = (float) Math.atan2( deltaY, deltaX );
 			
-			double speedX = 12 * Math.cos(angle);
-			double speedY = 12 * Math.sin(angle);
+			double speedX = 15 * Math.cos(angle);
+			double speedY = 15 * Math.sin(angle);
 			
 			x = (int) (x + speedX);
 			y = (int) (y + speedY);			

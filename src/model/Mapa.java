@@ -57,6 +57,10 @@ public class Mapa {
 		return pantalla;
 	}
 	
+	public int getPointsToWin() {
+		return pointsToWin;
+	}
+	
 	public void contestar(int nivel, String resp) {
 		if(pantalla[nivel].respCorrec(resp)) {
 			pantalla[nivel].completado();
@@ -118,7 +122,29 @@ public class Mapa {
 	public void pantallaCompletada(int n) {
 		pantalla[n].completado();
 		//jugador.sumarCoins(25+pantalla[n].getLevel());
-		jugador.sumarCoins(25);
+		jugador.sumarCoins(30);
+	}
+	
+	public boolean juegoSuperado() {
+		boolean superado = true;
+		for (int i = 0; i < pantalla.length && superado; i++) {
+			if(pantalla[i].getCompletado() == false) {
+				superado = false;
+			}
+		}
+		return superado;
+	}
+	
+	public boolean pointSuperado() {
+		boolean superado = false;
+		
+		int coins = 25*(adjMatrix.length+1);
+		int point = jugador.getPuntuacion();
+		int total = (int) (((double) coins/(double) point)*10000);
+		if(total>= pointsToWin) {
+			superado = true;
+		}
+		return superado;
 	}
 
 	public void generateMatriz() {
@@ -147,17 +173,26 @@ public class Mapa {
 			}
 		}
 		puntaje();
-		print(adjMatrix);
-		print(weight);
+		//print(adjMatrix);
+		//print(weight);
 	}
 	
 	public void puntaje() {
 		int prim = prim(weight);
-		System.out.println(prim);
-		int coins = 25*(adjMatrix.length+1);
-		System.out.println(coins);
+		//System.out.println("prim = "prim);
+		int coins = 30*(adjMatrix.length+1);
+		//System.out.println("coins = "coins);
 		pointsToWin = (int) (((double) coins/(double) prim)*10000);
-		System.out.println(pointsToWin);
+		//System.out.println("pointsToWin = "pointsToWin);
+	}
+	
+	public int puntajeJugador() {
+		int coins = 30*(adjMatrix.length+1);
+		if(jugador.getPuntuacion() == 0) {
+			return 0;
+		}else {
+			return (int) ((((double) coins/(double) jugador.getPuntuacion())*10000)+jugador.getCoins());			
+		}
 	}
 	
 	public void printVisist(boolean[] n) {
@@ -287,7 +322,10 @@ public class Mapa {
 				}
 			}
 		}
-//		printMST(mst, matrix.length, matrix);
+		
+		if(jugador != null &&jugador.getNickname().equalsIgnoreCase("prim")) {
+			printMST(mst, matrix.length, matrix);			
+		}
 		return totalPrim(mst, matrix.length, matrix);
 	}
 	

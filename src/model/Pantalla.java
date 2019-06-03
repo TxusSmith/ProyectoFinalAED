@@ -93,8 +93,8 @@ public class Pantalla {
 			pregunta = preg[n];
 			respuesta = resp[n];			
 		}
-		System.out.println(pregunta);
-		System.out.println(respuesta);
+		//System.out.println(pregunta);
+		//System.out.println(respuesta);
 	}
 	
 	public void completado() {

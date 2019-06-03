@@ -15,10 +15,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import model.Jugador;
 
 public class PanelPantalla extends JPanel implements ActionListener {
 	
@@ -87,20 +91,27 @@ public class PanelPantalla extends JPanel implements ActionListener {
 		int o = ThreadLocalRandom.current().nextInt(0, respuestas.size());
 		
 		String resp = vPrincipal.getMapa().getPantalla()[vPrincipal.getMapa().getJugador().getNivelActual()].getRespuesta();
+		
+		ArrayList<String> botones = new ArrayList<>();
+		botones.add(resp);
+		botones.add(respuestas.get(n));
+		botones.add(respuestas.get(m));
+		botones.add(respuestas.get(o));
+		Collections.shuffle(botones);
 
-	    resp1 = new JButton(resp);
+	    resp1 = new JButton(botones.get(0));
 	    resp1.setActionCommand(RESP1);
 	    resp1.addActionListener(this);
 	    
-	    resp2 = new JButton(respuestas.get(n));
+	    resp2 = new JButton(botones.get(1));
 	    resp2.setActionCommand(RESP2);
 	    resp2.addActionListener(this);
 	    
-	    resp3 = new JButton(respuestas.get(m));
+	    resp3 = new JButton(botones.get(2));
 	    resp3.setActionCommand(RESP3);
 	    resp3.addActionListener(this);
 	    
-	    resp4 = new JButton(respuestas.get(o));
+	    resp4 = new JButton(botones.get(3));
 	    resp4.setActionCommand(RESP4);
 	    resp4.addActionListener(this);
 
@@ -148,7 +159,7 @@ public class PanelPantalla extends JPanel implements ActionListener {
 				vPrincipal.mapa();
 			}else {
 				vPrincipal.getMapa().getJugador().quitarVida();
-				vPrincipal.gameOver();
+				vPrincipal.mapa();
 			}
 			
 		}else if(comando.equals(RESP2)) {
@@ -157,7 +168,7 @@ public class PanelPantalla extends JPanel implements ActionListener {
 				vPrincipal.mapa();
 			}else {
 				vPrincipal.getMapa().getJugador().quitarVida();
-				vPrincipal.gameOver();
+				vPrincipal.mapa();
 			}
 		
 		}else if(comando.equals(RESP3)) {
@@ -166,7 +177,7 @@ public class PanelPantalla extends JPanel implements ActionListener {
 				vPrincipal.mapa();
 			}else {
 				vPrincipal.getMapa().getJugador().quitarVida();
-				vPrincipal.gameOver();
+				vPrincipal.mapa();
 			}
 			
 		}else {
@@ -175,7 +186,7 @@ public class PanelPantalla extends JPanel implements ActionListener {
 				vPrincipal.mapa();
 			}else {
 				vPrincipal.getMapa().getJugador().quitarVida();
-				vPrincipal.gameOver();
+				vPrincipal.mapa();
 			}
 			
 		}

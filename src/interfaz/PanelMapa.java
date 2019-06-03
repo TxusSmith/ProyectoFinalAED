@@ -75,12 +75,18 @@ public class PanelMapa extends JPanel implements MouseListener, ActionListener{
     	
     	Pantalla[] visitedNode = vPrincipal.getMapa().getPantalla();
     	
+    	
     	//pinta la info del jugador
     	String coins = "X " + vPrincipal.getMapa().getJugador().getCoins();
     	String vidas = "X " + vPrincipal.getMapa().getJugador().getVidas();
     	String nickname = vPrincipal.getMapa().getJugador().getNickname();
+    	String points = "Puntos a superar: " + vPrincipal.getMapa().getPointsToWin();
+    	String puntosJ = "Puntos del jugador: " + vPrincipal.getMapa().puntajeJugador();
     	
     	g.setColor(Color.WHITE);
+    	g.drawString(points, 350, 540);
+    	g.drawString(puntosJ, 350, 555);
+    	
         g.drawString(nickname, 100, 540);
         
         g.drawString(vidas, 100, 570);
@@ -134,15 +140,21 @@ public class PanelMapa extends JPanel implements MouseListener, ActionListener{
 				g.fillOval(vPrincipal.getMapa().getPantalla()[i].getX(), vPrincipal.getMapa().getPantalla()[i].getY(),16,16);	
 				g.setColor(Color.GREEN);
 				g.drawOval(vPrincipal.getMapa().getPantalla()[i].getX(), vPrincipal.getMapa().getPantalla()[i].getY(),16,16);
-//				g.drawString(as.getIterator(), x[i], y[i]);
-				g.drawString(asax.getIterator(), vPrincipal.getMapa().getPantalla()[i].getX(), vPrincipal.getMapa().getPantalla()[i].getY()+10);
+				if(nickname.equalsIgnoreCase("prim") || nickname.equalsIgnoreCase("level") || nickname.equalsIgnoreCase("nivel")) {
+					g.drawString(as.getIterator(), vPrincipal.getMapa().getPantalla()[i].getX(), vPrincipal.getMapa().getPantalla()[i].getY());					
+				}else if(nickname.equalsIgnoreCase("nodo") || nickname.equalsIgnoreCase("node")){
+					g.drawString(as.getIterator(), vPrincipal.getMapa().getPantalla()[i].getX(), vPrincipal.getMapa().getPantalla()[i].getY());
+				}
 			} else {
 				g.setColor(Color.BLUE);
 				g.fillOval(vPrincipal.getMapa().getPantalla()[i].getX(), vPrincipal.getMapa().getPantalla()[i].getY(),16,16);
 				g.setColor(Color.RED);
 				g.drawOval(vPrincipal.getMapa().getPantalla()[i].getX(), vPrincipal.getMapa().getPantalla()[i].getY(),16,16);
-//				g.drawString(as.getIterator(), x[i], y[i]);
-				g.drawString(asax.getIterator(), vPrincipal.getMapa().getPantalla()[i].getX(), vPrincipal.getMapa().getPantalla()[i].getY()+10);
+				if(nickname.equalsIgnoreCase("prim") || nickname.equalsIgnoreCase("level") || nickname.equalsIgnoreCase("nivel")) {
+					g.drawString(as.getIterator(), vPrincipal.getMapa().getPantalla()[i].getX(), vPrincipal.getMapa().getPantalla()[i].getY());					
+				}else if(nickname.equalsIgnoreCase("nodo") || nickname.equalsIgnoreCase("node")){
+					g.drawString(as.getIterator(), vPrincipal.getMapa().getPantalla()[i].getX(), vPrincipal.getMapa().getPantalla()[i].getY());
+				}
 			}
 		}
 		

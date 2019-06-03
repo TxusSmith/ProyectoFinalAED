@@ -41,23 +41,27 @@ public class VentanaPrincipal extends JFrame {
 	}
 	
 	public void mapa(){
-		panel.removeAll();
-		panel.setOpaque(false);
-		pMapa = new PanelMapa(this);
-		
-		JPanel panel2 = new JPanel();
-		panel2.setLayout(new BorderLayout());
-		panel2.setOpaque(false);
-		
-		JPanel panel1 = new JPanel();
-		panel1.setLayout(new BorderLayout());
-		panel1.setOpaque(false);
-		
-		panel2.add(pMapa, BorderLayout.CENTER);
-		
-		panel.add(panel2, BorderLayout.CENTER);
-		
-		pMapa.revalidate();
+		if(getMapa().juegoSuperado()||getMapa().getJugador().getVidas()<0) {
+			gameOver();
+		}else {
+			panel.removeAll();
+			panel.setOpaque(false);
+			pMapa = new PanelMapa(this);
+			
+			JPanel panel2 = new JPanel();
+			panel2.setLayout(new BorderLayout());
+			panel2.setOpaque(false);
+			
+			JPanel panel1 = new JPanel();
+			panel1.setLayout(new BorderLayout());
+			panel1.setOpaque(false);
+			
+			panel2.add(pMapa, BorderLayout.CENTER);
+			
+			panel.add(panel2, BorderLayout.CENTER);
+			
+			pMapa.revalidate();			
+		}
 	}
 	
 	public void character() throws IOException {
@@ -84,12 +88,10 @@ public class VentanaPrincipal extends JFrame {
 	}
 	
 	public void gameOver() {
-		if(getMapa().getJugador().getVidas()<0) {
-			panel.removeAll();
-			pGameOver = new PanelGameOver(this);
-			panel.add(pGameOver, BorderLayout.CENTER);
-			pGameOver.revalidate();			
-		}
+		panel.removeAll();
+		pGameOver = new PanelGameOver(this);
+		panel.add(pGameOver, BorderLayout.CENTER);
+		pGameOver.revalidate();			
 	}
 	
 	public void crearJugador() throws CampoVacioException{
@@ -100,6 +102,7 @@ public class VentanaPrincipal extends JFrame {
 		}else{
 			Jugador jugador = new Jugador(nickname, mapa.getPantalla()[0].getX(), mapa.getPantalla()[0].getY(), Jugador.MARIO);
 			mapa.setJugador(jugador);
+			mapa.prim(mapa.getWeight());
 			//mapa.printVisist(mapa.getVisitNode());
 		}	 
 	}
