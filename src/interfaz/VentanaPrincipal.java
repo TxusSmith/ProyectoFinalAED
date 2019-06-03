@@ -17,6 +17,7 @@ public class VentanaPrincipal extends JFrame {
 	private PanelMapa pMapa;
 	private PanelEscojerJugador pEJugador;
 	private PanelPantalla pPantalla;
+	private PanelGameOver pGameOver;
 	
 	private Mapa mapa;
 	
@@ -56,8 +57,6 @@ public class VentanaPrincipal extends JFrame {
 		
 		panel.add(panel2, BorderLayout.CENTER);
 		
-		//pack();
-		
 		pMapa.revalidate();
 	}
 	
@@ -84,16 +83,24 @@ public class VentanaPrincipal extends JFrame {
 		pStart.revalidate();
 	}
 	
+	public void gameOver() {
+		if(getMapa().getJugador().getVidas()<0) {
+			panel.removeAll();
+			pGameOver = new PanelGameOver(this);
+			panel.add(pGameOver, BorderLayout.CENTER);
+			pGameOver.revalidate();			
+		}
+	}
+	
 	public void crearJugador() throws CampoVacioException{
 		mapa = new Mapa();
 		String nickname = JOptionPane.showInputDialog( null , "Ingrese su Nickname" );
 		if(nickname == null || nickname.isEmpty()){
 			throw new CampoVacioException();
 		}else{
-			Jugador jugador = new Jugador(nickname, mapa.getXn()[0], mapa.getYn()[0], Jugador.MARIO);
+			Jugador jugador = new Jugador(nickname, mapa.getPantalla()[0].getX(), mapa.getPantalla()[0].getY(), Jugador.MARIO);
 			mapa.setJugador(jugador);
-			//mapa.visited();
-			mapa.printVisist(mapa.getVisitNode());
+			//mapa.printVisist(mapa.getVisitNode());
 		}	 
 	}
 	

@@ -1,8 +1,5 @@
 package interfaz;
 
-import org.jgrapht.*;
-import org.jgrapht.alg.*;
-import org.jgrapht.graph.*;
 import java.util.List;
 
 public class Graph {

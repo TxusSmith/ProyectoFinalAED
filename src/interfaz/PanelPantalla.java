@@ -17,11 +17,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
-import model.Jugador;
 
 public class PanelPantalla extends JPanel implements ActionListener {
 	
@@ -51,31 +48,6 @@ public class PanelPantalla extends JPanel implements ActionListener {
 		salir = new JButton("SALIR");
 		salir.setActionCommand(SALIR);
 		salir.addActionListener(this);
-
-//	    resp1 = new JButton("X");
-//	    resp1.setActionCommand(RESP1);
-//	    resp1.addActionListener(this);
-//	    
-//	    resp2 = new JButton("X");
-//	    resp2.setActionCommand(RESP2);
-//	    resp2.addActionListener(this);
-//	    
-//	    resp3 = new JButton("X");
-//	    resp3.setActionCommand(RESP3);
-//	    resp3.addActionListener(this);
-//	    
-//	    resp4 = new JButton("X");
-//	    resp4.setActionCommand(RESP4);
-//	    resp4.addActionListener(this);
-//
-//		panel = new JPanel();
-//		panel.setLayout(new GridLayout(2, 2));
-//		panel.setOpaque(false);
-//		
-//		panel.add(resp1);
-//		panel.add(resp2);
-//		panel.add(resp3);
-//		panel.add(resp4);
 		
 		ponerRespuestas();
 		
@@ -85,7 +57,6 @@ public class PanelPantalla extends JPanel implements ActionListener {
 		
 		panel2.add(salir);
 		
-		//add(panel, BorderLayout.SOUTH);
 		add(panel2, BorderLayout.NORTH);
 		
 	}
@@ -111,9 +82,9 @@ public class PanelPantalla extends JPanel implements ActionListener {
 			
 		}
 		
-		int n = ThreadLocalRandom.current().nextInt(0, respuestas.size()+1);
-		int m = ThreadLocalRandom.current().nextInt(0, respuestas.size()+1);
-		int o = ThreadLocalRandom.current().nextInt(0, respuestas.size()+1);
+		int n = ThreadLocalRandom.current().nextInt(0, respuestas.size());
+		int m = ThreadLocalRandom.current().nextInt(0, respuestas.size());
+		int o = ThreadLocalRandom.current().nextInt(0, respuestas.size());
 		
 		String resp = vPrincipal.getMapa().getPantalla()[vPrincipal.getMapa().getJugador().getNivelActual()].getRespuesta();
 
@@ -154,22 +125,58 @@ public class PanelPantalla extends JPanel implements ActionListener {
     	String preg = vPrincipal.getMapa().getPantalla()[vPrincipal.getMapa().getJugador().getNivelActual()].getPregunta();
     	
     	g.setColor(Color.WHITE);
-        g.drawString(preg, 100, 200);
+        g.drawString(preg, 50, 200);
+        
+        String vidas = "X " + vPrincipal.getMapa().getJugador().getVidas();
+        g.drawString(vidas, 50, 70);
+        Image life = toolkit.getImage("imagenes/life.png");
+        g.drawImage(life, 30, 55, 16, 15, this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent evento) {
 		String comando = evento.getActionCommand();
 		
+		int nivel =vPrincipal.getMapa().getJugador().getNivelActual(); 
+		String resp = vPrincipal.getMapa().getPantalla()[nivel].getRespuesta();
+		
 		if(comando.equals(SALIR)) {
 			vPrincipal.mapa();
 		}else if(comando.equals(RESP1)) {
+			if(resp1.getText().equals(resp)) {
+				vPrincipal.getMapa().pantallaCompletada(nivel);
+				vPrincipal.mapa();
+			}else {
+				vPrincipal.getMapa().getJugador().quitarVida();
+				vPrincipal.gameOver();
+			}
 			
 		}else if(comando.equals(RESP2)) {
+			if(resp2.getText().equals(resp)) {
+				vPrincipal.getMapa().pantallaCompletada(nivel);
+				vPrincipal.mapa();
+			}else {
+				vPrincipal.getMapa().getJugador().quitarVida();
+				vPrincipal.gameOver();
+			}
 		
 		}else if(comando.equals(RESP3)) {
+			if(resp3.getText().equals(resp)) {
+				vPrincipal.getMapa().pantallaCompletada(nivel);
+				vPrincipal.mapa();
+			}else {
+				vPrincipal.getMapa().getJugador().quitarVida();
+				vPrincipal.gameOver();
+			}
 			
 		}else {
+			if(resp4.getText().equals(resp)) {
+				vPrincipal.getMapa().pantallaCompletada(nivel);
+				vPrincipal.mapa();
+			}else {
+				vPrincipal.getMapa().getJugador().quitarVida();
+				vPrincipal.gameOver();
+			}
 			
 		}
 		

@@ -1,2 +1,2 @@
-Que es el mapa?
-un grafo
+El mapa de este juego representa un:
+grafo

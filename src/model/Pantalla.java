@@ -14,12 +14,33 @@ public class Pantalla {
 	private String respuesta;
 	private boolean completado;
 	
+	private int x;
+	private int y;
+	
 	public Pantalla(int level) {
 		this.level = level;
 		pregunta = "";
 		respuesta = "";
 		completado = false;
+		x = ThreadLocalRandom.current().nextInt(50, 650);
+		y = ThreadLocalRandom.current().nextInt(18, 500);
 		cargar();
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
 	}
 	
 	public String getPregunta() {
@@ -28,6 +49,14 @@ public class Pantalla {
 	
 	public String getRespuesta() {
 		return respuesta;
+	}
+	
+	public boolean getCompletado() {
+		return completado;
+	}
+	
+	public int getLevel() {
+		return level;
 	}
 	
 	public void cargar() {

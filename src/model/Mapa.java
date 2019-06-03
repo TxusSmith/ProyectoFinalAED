@@ -10,25 +10,18 @@ public class Mapa {
 	
 	private Jugador jugador;
 	private Pantalla[] pantalla;
-	
-	private int[] x;
-	private int[] y;
-	private boolean[] visitNode;
 
 	private int[][] adjMatrix;
 	private int[][] weight;
 	private boolean[][] visit;
 	
+	private int pointsToWin;
+	
 	private LinkedList<Integer>[] adjList;
 	
 	public Mapa() {
 		generateMatriz();
-		x = new int[adjMatrix.length];
-		y = new int[adjMatrix.length];
-		visitNode = new boolean[adjMatrix.length];
 		pantalla = new Pantalla[adjMatrix.length];
-		possx();
-		possy();
 		llenarPantallas();
 	}
 	
@@ -42,18 +35,6 @@ public class Mapa {
 	
 	public void setJugador(Jugador jugador) {
 		this.jugador = jugador;
-	}
-	
-	public int[] getXn() {
-		return x;
-	}
-	
-	public int[] getYn() {
-		return y;
-	}
-	
-	public boolean[] getVisitNode() {
-		return visitNode;
 	}
 	
 	public int[][] getAdjMatriz() {
@@ -72,10 +53,6 @@ public class Mapa {
 		return visit;
 	}
 	
-//	public void visited() {
-//		visitNode[jugador.getNivelActual()] = true;
-//	}
-	
 	public Pantalla[] getPantalla() {
 		return pantalla;
 	}
@@ -91,26 +68,57 @@ public class Mapa {
 		for (int i = 0; i < levels.length; i++) {
 			pantalla[i] = new Pantalla(i);
 		}
+		arreglarXY();
 	}
 	
-	public void possx() {
-		for (int i = 0; i < x.length; i++) {
-	    	x[i] = ThreadLocalRandom.current().nextInt(50, 650);
+	public void arreglarXY() {
+		int[] xn = new int[pantalla.length];
+		int[] yn = new int[pantalla.length];
+		
+		for (int i = 0; i < xn.length; i++) {
+	    	xn[i] = pantalla[i].getX();
 		}
-	}
-	
-	public void possy() {
-		for (int i = 0; i < y.length; i++) {
-	    	y[i] = ThreadLocalRandom.current().nextInt(18, 500);
+		for (int i = 0; i < yn.length; i++) {
+			yn[i] = pantalla[i].getY();
+		}
+		
+		for (int i = 0; i < xn.length; i++) {
+		    for (int k = i + 1; k < xn.length; k++) {
+		        if (xn[k] <= xn[i]+16 && xn[k] >= xn[i]-16) {
+		        	xn[k] += 32;
+					pantalla[k].setX(xn[k]);
+		        }
+		        if (yn[k] <= yn[i]+16 && yn[k] >= yn[i]-16) {
+		        	yn[k] += 32;
+					pantalla[k].setY(yn[k]);
+		        }
+		    }
 		}
 	}
 	
 	public boolean moverONoJugador(int n) {
 		boolean mover = false;
-		if(adjMatrix[jugador.getNivelActual()][n]>0) {
+		int x = jugador.getNivelActual();
+		if(adjMatrix[x][n]>0 && weight[x][n]<=jugador.getCoins()) {
 			mover = true;
 		}
 		return mover;
+	}
+	
+	public void edgeUpdate(int n) {
+		int x = jugador.getNivelActual();
+		jugador.restarCoins(weight[x][n]);
+		jugador.setPuntuacion(jugador.getPuntuacion()+weight[x][n]);
+		weight[x][n] = 0;
+		weight[n][x] = 0;
+		visit[x][n] = true;
+		visit[n][x] = true;
+	}
+	
+	public void pantallaCompletada(int n) {
+		pantalla[n].completado();
+		//jugador.sumarCoins(25+pantalla[n].getLevel());
+		jugador.sumarCoins(25);
 	}
 
 	public void generateMatriz() {
@@ -123,7 +131,7 @@ public class Mapa {
 			for (int j = i; j < adjMatrix.length; j++) {
 				//visit[i][j] = true;
 				double x = ThreadLocalRandom.current().nextInt(0, 100);
-				int cost = ThreadLocalRandom.current().nextInt(25, 50);
+				int cost = ThreadLocalRandom.current().nextInt(25, 35);
 				if(i!=j && adjMatrix[i][j] == 0 && h < 2) {
 					if(x%2==0) {
 						adjMatrix[i][j] = 0;
@@ -138,8 +146,18 @@ public class Mapa {
 				}
 			}
 		}
+		puntaje();
 		print(adjMatrix);
 		print(weight);
+	}
+	
+	public void puntaje() {
+		int prim = prim(weight);
+		System.out.println(prim);
+		int coins = 25*(adjMatrix.length+1);
+		System.out.println(coins);
+		pointsToWin = (int) (((double) coins/(double) prim)*10000);
+		System.out.println(pointsToWin);
 	}
 	
 	public void printVisist(boolean[] n) {
@@ -217,6 +235,60 @@ public class Mapa {
 			}
 		}
 		return levels;
+	}
+	
+	public int minVertex(int[] weight, boolean[] inMst, int vertexs){
+		int min = Integer.MAX_VALUE;
+		int min2 = -1;
+		for (int i = 0; i < vertexs; i++) {
+			if(inMst[i] == false && weight[i] < min){
+				min = weight[i];
+				min2 = i;
+			}
+		}
+		return min2;
+	}
+	
+	public void printMST(int parent[], int n, int graph[][]){ 
+	        System.out.println("Edge \tWeight"); 
+	        for (int i = 1; i < graph.length; i++) {
+	            System.out.println(parent[i]+" - "+ i+"\t"+ graph[i][parent[i]]); 
+	        }
+	}
+	
+	public int totalPrim(int parent[], int n, int graph[][]) {
+		int total = 0;
+		for (int i = 1; i < graph.length; i++) {
+            total += graph[i][parent[i]]; 
+        }
+		return total;
+	}
+	
+	public int prim(int[][] matrix){
+		int[] mst = new int[matrix.length];
+		int[] weight = new int[matrix.length];
+		boolean[] inMst = new boolean[matrix.length];
+		
+		for (int i = 0; i < matrix.length; i++) { 
+			weight[i] = Integer.MAX_VALUE; 
+			inMst[i] = false; 
+        }
+		
+		weight[0] = 0; 
+		mst[0] = -1;
+		
+		for (int i = 0; i < matrix.length-1; i++) {
+			int u = minVertex(weight, inMst, matrix.length);
+			inMst[u] = true;
+			for (int j = 0; j < matrix.length; j++) {
+				if(matrix[u][j] != 0 && inMst[j] == false && matrix[u][j] < weight[j]){
+					mst[j] = u;
+					weight[j] = matrix[u][j];
+				}
+			}
+		}
+//		printMST(mst, matrix.length, matrix);
+		return totalPrim(mst, matrix.length, matrix);
 	}
 	
 	//----------------------------------------------
@@ -299,6 +371,8 @@ public class Mapa {
 	       return levels;
 
     }
+	
+	//-------------------------------------------------------------------------------------------------------
 	
 	public void addEdges(int src, int dest){
 		adjList[dest].add(src);

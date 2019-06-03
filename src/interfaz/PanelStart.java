@@ -43,8 +43,6 @@ public class PanelStart extends JPanel implements ActionListener {
 		panel.setOpaque(false);
 		
 		panel.add(butNewGame);
-//		panel.add(new JLabel(""));
-//		panel.add(new JLabel(""));
 		
 		JPanel panel2 = new JPanel();
 		panel2.setLayout(new FlowLayout());
@@ -61,6 +59,7 @@ public class PanelStart extends JPanel implements ActionListener {
     	Image fondo = toolkit.getImage("imagenes/fondo1.gif");
 
     	g.drawImage(fondo, 0, 0, 700, 910, this);
+    	
     	try {
 			g.drawImage(ImageIO.read(new File("imagenes/title.png")), 168, 70, 360, 270, this);
 		} catch (IOException e) {
@@ -82,10 +81,8 @@ public class PanelStart extends JPanel implements ActionListener {
 				try {
 					vPrincipal.character();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
-				//vPrincipal.mapa();				
+				}				
 			}
 		}
 	}

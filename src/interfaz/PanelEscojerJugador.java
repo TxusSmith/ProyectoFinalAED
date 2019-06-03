@@ -80,12 +80,6 @@ public class PanelEscojerJugador extends JPanel implements ActionListener {
 		panel.add(sonic);
 		panel.add(link);
 		
-//		JPanel panel2 = new JPanel();
-//		panel2.setLayout(new FlowLayout());
-//		panel2.setOpaque(false);
-		
-		//panel2.add(panel);
-		
 		add(panel, BorderLayout.CENTER);
 	    
 	}

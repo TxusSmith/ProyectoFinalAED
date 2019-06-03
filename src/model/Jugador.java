@@ -20,7 +20,7 @@ public class Jugador {
 		this.nickname = nickname;
 		puntuacion = 0;
 		nivelActual = 0;
-		coins = 50;
+		coins = 25;
 		vidas = 4; 
 		this.x = x;
 		this.y = y;
@@ -87,10 +87,8 @@ public class Jugador {
 		coins -= co;
 	}
 	
-	public void quitarVida(boolean si) {
-		if(si) {
-			vidas--;			
-		}
+	public void quitarVida() {
+		vidas--;			
 	}
 	
 	public void moverJugador(int x1, int y1) {
@@ -111,6 +109,12 @@ public class Jugador {
 		if(dist<8) {
 			x = x1;
 			y = y1;
+		}
+	}
+	
+	public void puntuacionFinal() {
+		if(vidas<=0) {
+			puntuacion = coins;
 		}
 	}
 
