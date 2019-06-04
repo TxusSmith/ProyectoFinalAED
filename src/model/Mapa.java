@@ -121,7 +121,6 @@ public class Mapa {
 	
 	public void pantallaCompletada(int n) {
 		pantalla[n].completado();
-		//jugador.sumarCoins(25+pantalla[n].getLevel());
 		jugador.sumarCoins(30);
 	}
 	
@@ -330,14 +329,6 @@ public class Mapa {
 	}
 	
 	//----------------------------------------------
-	
-	public int[] menorDificultad(int indice) {
-	
-		int[] dificultad = new int[0];
-		
-		return dificultad;
-		
-	}
 	
 	public int minDistance(int dist[], Boolean vis[], int size){ 
         int min = Integer.MAX_VALUE;
