@@ -111,11 +111,5 @@ public class Jugador {
 			y = y1;
 		}
 	}
-	
-	public void puntuacionFinal() {
-		if(vidas<=0) {
-			puntuacion = coins;
-		}
-	}
 
 }
